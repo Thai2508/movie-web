@@ -2,5 +2,5 @@
 Now =>>
   include :
       # identity-service
-      # frofile-service
+      # profile-service
       # api-gateway
