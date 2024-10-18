@@ -1,6 +1,6 @@
 # Movie-Web-Api
-Now:
-  inclue :
+Now =>>
+  include :
       - identity-service
       - frofile-service
       - api-gateway
