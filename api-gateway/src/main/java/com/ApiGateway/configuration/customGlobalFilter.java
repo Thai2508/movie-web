@@ -35,7 +35,7 @@ public class customGlobalFilter implements GlobalFilter, Ordered {
     IdentityService identityService;
 
     @NonFinal
-    private String[] publicEndpoints = {"/crud/authentication/.*"};
+    private String[] publicEndpoints = {"/crud/authentication/.*", "/crud/signup"};
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
