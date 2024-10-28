@@ -3,6 +3,8 @@ Present (
   include [
        identity-service,
        profile-service,
-       api-gateway
+       api-gateway,
+       notification-service,
+       post-service
   ]
-)
+) =>> Updating
