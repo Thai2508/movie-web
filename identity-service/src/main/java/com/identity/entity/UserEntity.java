@@ -19,6 +19,7 @@ public class UserEntity {
     String id;
     String username;
     String password;
+    String email;
     String lastName;
     String firstName;
     LocalDate dob;
