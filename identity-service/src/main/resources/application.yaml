@@ -12,6 +12,11 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  kafka:
+    bootstrap-servers: localhost:9094
+    producer:
+      key-deserializer: org.apache.kafka.common.serialization.StringSerializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 jwt:
   private-key: "tW2gMT6dTuyA0+lKN4Uga/MBT5Nc5BYtgihIfWk+0rVuCRFkZSy7UQkBudkGTPVI/OWSiNA5bxNLAwMKQrco0wbyFn7tgsnzQ/YXY063jM2clETw7rnWA/SaIe8qsQ8fyPMByIh37gtgKEU9tMzXaJ0J9xRfPjIcByZGn5ewcIto9O7ICLtvbM8bU9SZmzm9h21hMqU4JesQ5LrU6HAWAygZjyu53bLBKq8TszQRg0TnjqZLZKebAwyK/vuc+w+KoWw4xwlWyJgBFyhnQjLYZE+sDSa7XL/gKxyc1ixe95occT96G4mtyBGLFnaF9q9JEsiBcJtSFoj9GMLvwm63+HqZO5c5DJNjksXr35xxc+LrD8UqmC1TzTyRq1FGvPfpX10u0B7+GQ+xNNi+EU/8eA=="

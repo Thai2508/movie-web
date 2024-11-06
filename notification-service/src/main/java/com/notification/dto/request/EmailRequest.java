@@ -13,6 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmailRequest {
-    Sender senderRequest;
-    SendEmailRequest sendEmailRequest;
+    Sender sender;
+    List<Recipient> to;
+    String htmlContent;
+    String subject;
 }

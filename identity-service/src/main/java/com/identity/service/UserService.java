@@ -1,5 +1,6 @@
 package com.identity.service;
 
+import com.event.dto.NotificationEvent;
 import com.identity.dto.request.UserCreationRequest;
 import com.identity.dto.request.UserUpdateRequest;
 import com.identity.dto.response.UserResponse;
@@ -14,12 +15,14 @@ import com.identity.repository.httpClient.ProfileClient;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -31,6 +34,7 @@ public class UserService {
     PasswordEncoder passwordEncoder;
     ProfileMapper profileMapper;
     ProfileClient profileClient;
+    KafkaTemplate<String, Object> kafkaTemplate;
 
     public UserResponse createUser(UserCreationRequest userRequest) {
 
@@ -45,6 +49,16 @@ public class UserService {
         } catch(Exception e){
             throw new AppException(ErrorCode.NOT_INITIALIZE);
         }
+        Random random = new Random();
+        int randomNum = random.nextInt(90000)+10000;
+        NotificationEvent notificationEvent = NotificationEvent.builder()
+                .channel("EMAIL-AUTHENTICATION")
+                .recipient(user.getEmail())
+                .subject("Email Authentication Code")
+                .body("Your Authentication Code is : "+randomNum)
+                .build();
+        // Publish message to kafka
+        kafkaTemplate.send("notification-delivery", notificationEvent);
 
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         var roles = roleRepository.findById("USER").stream().toList();

@@ -20,9 +20,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PACKAGE, makeFinal = true)
 public class EmailService {
 
-//    @Value("${app.api-key}")
-    @NonFinal
-    private String API_KEY=null;
+    String API_KEY="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";
 
     EmailClient emailClient;
 
@@ -33,8 +31,10 @@ public class EmailService {
                 .build();
 
         EmailRequest emailRequest = EmailRequest.builder()
-                .senderRequest(sender)
-                .sendEmailRequest(request)
+                .sender(sender)
+                .to(request.getTo())
+                .subject(request.getSubject())
+                .htmlContent(request.getHtmlContent())
                 .build();
 
         return emailClient.toEmailResponse(API_KEY, emailRequest);
