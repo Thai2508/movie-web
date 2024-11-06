@@ -1,7 +1,6 @@
 package com.notification.repository;
 
 import com.notification.dto.request.EmailRequest;
-import com.notification.dto.request.SendEmailRequest;
 import com.notification.dto.response.EmailResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;

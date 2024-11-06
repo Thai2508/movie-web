@@ -17,8 +17,12 @@ spring:
     uri: http://localhost:8085
     predicates:
       - Path=/notification/**
-#    filters:
-#      - StripPrefix=1
+  - id: post-service
+    uri: http://localhost:8087
+    predicates:
+      - Path=${app.prefix-path}/post/**
+    filters:
+      - StripPrefix=1
 
-#app:
-#  prefix-path:
+app:
+  prefix-path: /api
