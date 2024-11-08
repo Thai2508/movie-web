@@ -5,6 +5,8 @@ Present (
        profile-service,
        api-gateway,
        notification-service,
-       post-service
+       post-service,
+       movie-service,
+       
   ]
 ) =>> Updating
