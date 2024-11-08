@@ -8,6 +8,7 @@ import com.identity.entity.TokenEntity;
 import com.identity.entity.UserEntity;
 import com.identity.exception.AppException;
 import com.identity.exception.ErrorCode;
+import com.identity.repository.RoleRepository;
 import com.identity.repository.TokenRepository;
 import com.identity.repository.UserRepository;
 import com.nimbusds.jose.*;
@@ -28,6 +29,7 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.StringJoiner;
 import java.util.UUID;
 
@@ -38,6 +40,8 @@ public class AuthenticationService {
 
     UserRepository userRepository;
     TokenRepository tokenRepository;
+    PasswordEncoder passwordEncoder;
+    RoleRepository roleRepository;
 
     @NonFinal
     @Value("${jwt.private-key}")
@@ -53,17 +57,22 @@ public class AuthenticationService {
     protected Long refreshToken;
 
     public AuthenticationResponse authenticated(AuthenticationRequest authenticationRequest) {
+
         var user = userRepository.findByUsername(authenticationRequest.getUsername())
                 .orElseThrow(() -> new AppException(ErrorCode.USERNAME_AUTH));
 
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        if (user.getUsername().equals("admin") && user.getRoles().isEmpty()) {
+            var roles = roleRepository.findById("ADMIN").stream().toList();
+            user.setRoles(new HashSet<>(roles));
+            userRepository.save(user);
+        }
+
         if (!passwordEncoder.matches(authenticationRequest.getPassword(), user.getPassword()))
             throw new AppException(ErrorCode.PASSWORD_AUTH);
 
         String access_Token = generateAccessToken(user);
 
         return AuthenticationResponse.builder()
-                .authenticated(true)
                 .token(access_Token)
                 .build();
     }

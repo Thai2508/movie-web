@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Builder
@@ -20,7 +21,7 @@ public class CommentEntity {
     String id;
     String movieId;
     String userId;
-    String commentContent;
+    String comment;
     Instant dateComment;
     String isModifier;
 }

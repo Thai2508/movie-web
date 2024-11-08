@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProfileRepository extends Neo4jRepository<ProfileEntity, String> {
-
-
+    void deleteByUserId(String userId);
 }

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatusCode;
 
 @Getter
 public enum ErrorCode {
+    MOVIE_NOT_FOUND(1002,"Movie not found", HttpStatus.NOT_FOUND),
     UNAUTHORIZED(1007,"You don't have permission", HttpStatus.FORBIDDEN),
     UNAUTHENTICATED(1008,"UnAuthentication", HttpStatus.UNAUTHORIZED),
 

@@ -1,5 +1,6 @@
 package com.profile.controller;
 
+import com.profile.dto.ApiResponse;
 import com.profile.dto.request.ProfileRequest;
 import com.profile.dto.response.ProfileResponse;
 import com.profile.mapper.ProfileMapper;
@@ -18,22 +19,31 @@ public class ProfileController {
     ProfileService profileService;
 
     @PostMapping("/create")
-    public ProfileResponse create(@RequestBody ProfileRequest request) {
-        return profileService.createProfile(request);
+    public ApiResponse<ProfileResponse> create(@RequestBody ProfileRequest request) {
+        return ApiResponse.<ProfileResponse>builder()
+                .result(profileService.createProfile(request))
+                .build();
     }
 
     @GetMapping("/getProfile/{profileId}")
-    public ProfileResponse get(@PathVariable String profileId) {
-        return profileService.getProfile(profileId);
+    public ApiResponse<ProfileResponse> get(@PathVariable String profileId) {
+        return ApiResponse.<ProfileResponse>builder()
+                .result(profileService.getProfile(profileId))
+                .build();
     }
 
     @GetMapping("/getAllProfile")
-    public List<ProfileResponse> getAll() {
-        return profileService.getAllProfile();
+    public ApiResponse<List<ProfileResponse>> getAll() {
+        return ApiResponse.<List<ProfileResponse>>builder()
+                .result(profileService.getAllProfile())
+                .build();
     }
 
     @DeleteMapping("/deleteAll")
-    public void deleteAll() {
+    public ApiResponse<?> deleteAll() {
         profileService.deleteAllProfile();
+        return ApiResponse.builder()
+                .message("Deleted !!")
+                .build();
     }
 }

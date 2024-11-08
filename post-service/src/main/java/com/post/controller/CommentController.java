@@ -18,17 +18,25 @@ import java.util.List;
 public class CommentController {
     CommentService commentService;
 
-    @PostMapping("/")
-    public ApiResponse<CommentResponse> comment(@RequestBody CommentRequest request) {
+    @PostMapping("/{movieId}")
+    public ApiResponse<CommentResponse> comment(@PathVariable String movieId, @RequestBody CommentRequest request) {
         return ApiResponse.<CommentResponse>builder()
-                .result(commentService.createComment(request))
+                .result(commentService.createComment(request,movieId))
                 .build();
     }
 
-    @GetMapping("/getComment/{movieId}")
-    public ApiResponse<List<CommentResponse>> getComment(@PathVariable String movieId) {
+    @GetMapping("/getComment/{id}")
+    public ApiResponse<List<CommentResponse>> getComment(@PathVariable String id) {
         return ApiResponse.<List<CommentResponse>>builder()
-                .result(commentService.getCommentMovie(movieId))
+                .result(commentService.getCommentMovie(id))
+                .build();
+    }
+
+    @DeleteMapping("/deleteAll")
+    public ApiResponse<?> deleteAll() {
+        commentService.deleteAll();
+        return ApiResponse.builder()
+                .message("Success Full !!")
                 .build();
     }
 }

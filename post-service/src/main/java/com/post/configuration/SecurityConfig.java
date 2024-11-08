@@ -16,7 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-    private final String[] POST_PATTERNS = {"/create"};
+    private final String[] POST_PATTERNS = {};
+    private final String[] GET_PATTERNS = {};
     @Autowired
     CustomJwtDecoder customJwtDecoder;
 
@@ -24,6 +25,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(requestMatcherRegistry -> requestMatcherRegistry
                 .requestMatchers(HttpMethod.POST,POST_PATTERNS).permitAll()
+                .requestMatchers(HttpMethod.GET,GET_PATTERNS).permitAll()
                 .anyRequest().authenticated()
         );
         httpSecurity.csrf(AbstractHttpConfigurer::disable);

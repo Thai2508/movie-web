@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Builder
@@ -13,9 +14,8 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommentResponse {
-    String movieId;
     String userId;
-    String commentContent;
+    String comment;
     Instant dateComment;
     String isModifier;
 }

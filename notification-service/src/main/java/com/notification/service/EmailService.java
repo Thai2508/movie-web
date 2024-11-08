@@ -20,7 +20,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PACKAGE, makeFinal = true)
 public class EmailService {
 
-    String API_KEY="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";
+    String API_KEY="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";
 
     EmailClient emailClient;
 

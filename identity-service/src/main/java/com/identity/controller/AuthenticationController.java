@@ -3,9 +3,12 @@ package com.identity.controller;
 import com.identity.dto.request.ApiResponse;
 import com.identity.dto.request.AuthenticationRequest;
 import com.identity.dto.request.IntrospectRequest;
+import com.identity.dto.request.OtpEmailRequest;
 import com.identity.dto.response.AuthenticationResponse;
 import com.identity.dto.response.IntrospectResponse;
+import com.identity.dto.response.OtpEmailResponse;
 import com.identity.service.AuthenticationService;
+import com.identity.service.UserService;
 import com.nimbusds.jose.JOSEException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +26,7 @@ import java.text.ParseException;
 @RequestMapping("authentication")
 public class AuthenticationController {
     AuthenticationService authenticationService;
+    UserService userService;
 
     @PostMapping("/login")
     public ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
@@ -50,6 +54,13 @@ public class AuthenticationController {
 
         return ApiResponse.builder()
                 .message("Successful !!")
+                .build();
+    }
+
+    @PostMapping("/email")
+    public ApiResponse<OtpEmailResponse> emailAuth(@RequestBody OtpEmailRequest request){
+        return ApiResponse.<OtpEmailResponse>builder()
+                .result(userService.verifyEmail(request))
                 .build();
     }
 }

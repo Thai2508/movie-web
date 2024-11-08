@@ -20,6 +20,8 @@ public class UserEntity {
     String username;
     String password;
     String email;
+    @Builder.Default
+    String isEmailAuth="Unverified";
     String lastName;
     String firstName;
     LocalDate dob;

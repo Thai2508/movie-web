@@ -26,6 +26,14 @@ public class UserController {
         return apiResponse;
     }
 
+    @PostMapping("/sendEmail")
+    public ApiResponse<?> sendEmail() {
+        userService.sendingEmail();
+        return ApiResponse.builder()
+                .message("Sent !!")
+                .build();
+    }
+
     @GetMapping("/getUsers")
     public ApiResponse<UserResponse> getListUsers() {
         ApiResponse apiResponse = new ApiResponse();
@@ -43,15 +51,6 @@ public class UserController {
         return apiResponse;
     }
 
-//    @GetMapping("/getUser/{userId}")
-//    public ApiResponse<UserResponse> getUser(@PathVariable("userId") String id) {
-//        ApiResponse apiResponse = new ApiResponse();
-//        apiResponse.setResult(userService.getUser(id));
-//
-//        return apiResponse;
-//    }
-
-
     @PutMapping("/updateUser")
     public ApiResponse<UserResponse> updateUser(@Valid @RequestBody UserUpdateRequest userUpdateRequest) {
         ApiResponse apiResponse = new ApiResponse();
@@ -63,6 +62,14 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse deleteUser(@PathVariable("userId") String id) {
         userService.deleteUser(id);
+        return ApiResponse.builder()
+                .message("DELETED !!!")
+                .build();
+    }
+
+    @DeleteMapping("/deleteAll")
+    public ApiResponse deleteAllUser() {
+        userService.deleteAllUser();
         return ApiResponse.builder()
                 .message("DELETED !!!")
                 .build();

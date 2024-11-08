@@ -18,6 +18,7 @@ public class UserResponse {
     String id;
     String username;
     String email;
+    String isEmailAuth;
     String lastName;
     String firstName;
     LocalDate dob;

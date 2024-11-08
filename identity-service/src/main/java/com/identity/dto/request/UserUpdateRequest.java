@@ -19,7 +19,7 @@ import java.util.Set;
 public class UserUpdateRequest {
     @Size(min = 2, message = "USERNAME_SIZE")
     String username;
-    @Size(min = 5, message = "PASSWORD_SIZE")
+    @Size(min = 8, message = "PASSWORD_SIZE")
     String password;
     @Email
     String email;

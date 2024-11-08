@@ -41,4 +41,8 @@ public class ProfileService {
     public void deleteAllProfile() {
         profileRepository.deleteAll();
     }
+
+    public void deleteProfile(String userId) {
+        profileRepository.deleteByUserId(userId);
+    }
 }
