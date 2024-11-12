@@ -4,17 +4,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.Instant;
-import java.util.List;
-
 @Data
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentResponse {
-    String nickName;
+public class CommentResponseUser {
+    String movieName;
     String comment;
     String dateComment;
     String isModifier;

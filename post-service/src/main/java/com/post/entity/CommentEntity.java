@@ -19,9 +19,11 @@ import java.util.List;
 public class CommentEntity {
     @MongoId
     String id;
-    String movieId;
-    String userId;
+    String movieName;
+    String nickName;
     String comment;
-    Instant dateComment;
+    Instant nowComment;
+    @Builder.Default
+    String dateComment="1 seconds ago";
     String isModifier;
 }

@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class ProfileResponse {
     String profileId;
     String userId;
-    String lastName;
-    String firstName;
+    String nickName;
+    String email;
     LocalDate dob;
 }
