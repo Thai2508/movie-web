@@ -20,10 +20,18 @@ public class UserEntity {
     String username;
     String password;
     String email;
+<<<<<<< Updated upstream
     @Builder.Default
     String isEmailAuth="Unverified";
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
     String lastName;
     String firstName;
+=======
+    String isEmailAuth;
+    String nickName;
+>>>>>>> Stashed changes
     LocalDate dob;
 
     @ManyToMany

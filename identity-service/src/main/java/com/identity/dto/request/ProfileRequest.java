@@ -1,6 +1,7 @@
 package com.identity.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -14,7 +15,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class ProfileRequest {
     String userId;
-    String lastName;
-    String firstName;
+    String nickName;
+    @Email
+    String email;
     LocalDate dob;
 }

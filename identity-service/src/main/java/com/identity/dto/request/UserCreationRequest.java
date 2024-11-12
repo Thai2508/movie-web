@@ -23,8 +23,7 @@ public class UserCreationRequest {
     String password;
     @Email
     String email;
-    String lastName;
-    String firstName;
+    String nickName;
     @DobConstraint(min = 18, message = "INVALID_DOB")
     LocalDate dob;
     Set<String> roles;

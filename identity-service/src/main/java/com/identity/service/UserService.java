@@ -50,6 +50,7 @@ public class UserService {
 
         if (userRepository.existsByUsername(userRequest.getUsername()))
             throw new AppException(ErrorCode.USER_EXISTED);
+<<<<<<< Updated upstream
         UserEntity user = userMapper.toUser(userRequest);
 
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
@@ -57,10 +58,33 @@ public class UserService {
         user.setRoles(new HashSet<>(roles));
 
         user = userRepository.save(user);
+=======
+<<<<<<< Updated upstream
+        UserEntity user;
+>>>>>>> Stashed changes
         try {
             var profile = profileMapper.toProfileRequest(userRequest);
             profile.setUserId(user.getId());
+<<<<<<< Updated upstream
             log.info("Profile: {}",user.getId());
+=======
+=======
+        UserEntity user = userMapper.toUser(userRequest);
+
+        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        user.setIsEmailAuth("Unverified");
+        var roles = roleRepository.findById("USER").stream().toList();
+        user.setRoles(new HashSet<>(roles));
+
+        try {
+            user = userRepository.save(user);
+            List<String> list = List.of(user.getId(),user.getNickName());
+            kafkaTemplate.send("getNickName", list);
+
+            var profile = profileMapper.toProfileRequest(userRequest);
+            profile.setUserId(list.getFirst());
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
             profileClient.createProfile(profile);
         } catch(Exception e){
             throw new AppException(ErrorCode.NOT_INITIALIZE);
