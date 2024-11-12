@@ -1,11 +1,10 @@
-package com.post.dto.response;
+package com.post.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.time.Instant;
-import java.util.List;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Data
 @Builder
@@ -13,9 +12,9 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentResponse {
+@Document("userPostService")
+public class UserEntity {
+    @MongoId
+    String id;
     String nickName;
-    String comment;
-    String dateComment;
-    String isModifier;
 }

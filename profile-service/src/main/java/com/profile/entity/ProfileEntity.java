@@ -24,8 +24,8 @@ public class ProfileEntity {
     @Property("userId")
     String userId;
 
-    String lastName;
-    String firstName;
+    String nickName;
+    String email;
     LocalDate dob;
 
 }

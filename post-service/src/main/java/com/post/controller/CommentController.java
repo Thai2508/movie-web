@@ -3,6 +3,7 @@ package com.post.controller;
 import com.post.dto.ApiResponse;
 import com.post.dto.request.CommentRequest;
 import com.post.dto.response.CommentResponse;
+import com.post.dto.response.CommentResponseUser;
 import com.post.service.CommentService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -25,10 +26,16 @@ public class CommentController {
                 .build();
     }
 
-    @GetMapping("/getComment/{id}")
-    public ApiResponse<List<CommentResponse>> getComment(@PathVariable String id) {
+    @GetMapping("/getCommentMovie/{id}")
+    public ApiResponse<List<CommentResponse>> getCommentMovie(@PathVariable String id) {
         return ApiResponse.<List<CommentResponse>>builder()
                 .result(commentService.getCommentMovie(id))
+                .build();
+    }
+    @GetMapping("/getCommentUser/{id}")
+    public ApiResponse<List<CommentResponseUser>> getCommentUser(@PathVariable String id) {
+        return ApiResponse.<List<CommentResponseUser>>builder()
+                .result(commentService.getCommentUser(id))
                 .build();
     }
 

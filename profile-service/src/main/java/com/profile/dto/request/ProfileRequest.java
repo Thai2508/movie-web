@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class ProfileRequest {
     String userId;
-    String lastName;
-    String firstName;
+    String nickName;
+    String email;
     LocalDate dob;
 }
