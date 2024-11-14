@@ -1,6 +1,7 @@
 package com.identity.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -19,19 +20,11 @@ public class UserEntity {
     String id;
     String username;
     String password;
+    String nickName;
+    @Email
     String email;
-<<<<<<< Updated upstream
     @Builder.Default
     String isEmailAuth="Unverified";
-=======
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-    String lastName;
-    String firstName;
-=======
-    String isEmailAuth;
-    String nickName;
->>>>>>> Stashed changes
     LocalDate dob;
 
     @ManyToMany

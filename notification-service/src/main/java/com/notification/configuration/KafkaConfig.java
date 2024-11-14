@@ -29,16 +29,22 @@ public class KafkaConfig {
         return consumerProps;
     }
 
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, NotificationEvent> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, NotificationEvent> factory =
-                new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactory());
+    public <T> ConsumerFactory<String, T> consumerFactory(Class<T> valueType) {
+        Map<String, Object> props = consumerConfigs();
+        props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, valueType);
+        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(valueType));
+    }
+
+    public <T> ConcurrentKafkaListenerContainerFactory<String, T>
+                        kafkaListenerContainerFactory(Class<T> valueType) {
+        ConcurrentKafkaListenerContainerFactory<String, T> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(consumerFactory(valueType));
         return factory;
     }
 
     @Bean
-    public ConsumerFactory<String, Object> consumerFactory() {
-        return new DefaultKafkaConsumerFactory<>(consumerConfigs());
+    public ConcurrentKafkaListenerContainerFactory<String, NotificationEvent>
+                        notificationEventKafkaListenerContainerFactory() {
+        return kafkaListenerContainerFactory(NotificationEvent.class);
     }
 }

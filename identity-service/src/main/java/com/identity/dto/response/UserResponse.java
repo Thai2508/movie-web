@@ -18,17 +18,8 @@ public class UserResponse {
     String id;
     String username;
     String email;
-<<<<<<< Updated upstream
-    String isEmailAuth;
-=======
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-    String lastName;
-    String firstName;
-=======
-    String isEmailAuth;
     String nickName;
->>>>>>> Stashed changes
+    String isEmailAuth;
     LocalDate dob;
     Set<RoleEntity> roles;
 }

@@ -95,7 +95,7 @@ public class CommentService {
 
     public void deleteAll(){
         commentRepository.deleteAll();
-        userRepository.deleteAll();
+//        userRepository.deleteAll();
     }
 
 }

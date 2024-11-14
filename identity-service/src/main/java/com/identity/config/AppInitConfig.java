@@ -1,6 +1,5 @@
 package com.identity.config;
 
-import com.identity.entity.RoleEntity;
 import com.identity.entity.UserEntity;
 import com.identity.repository.UserRepository;
 import lombok.AccessLevel;
@@ -13,17 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-<<<<<<< Updated upstream
-import java.util.HashSet;
-
-=======
-<<<<<<< Updated upstream
-=======
-import java.util.HashSet;
 import java.util.List;
-
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)

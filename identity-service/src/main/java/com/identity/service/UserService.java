@@ -50,29 +50,10 @@ public class UserService {
 
         if (userRepository.existsByUsername(userRequest.getUsername()))
             throw new AppException(ErrorCode.USER_EXISTED);
-<<<<<<< Updated upstream
+
         UserEntity user = userMapper.toUser(userRequest);
 
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        var roles = roleRepository.findById("USER").stream().toList();
-        user.setRoles(new HashSet<>(roles));
-
-        user = userRepository.save(user);
-=======
-<<<<<<< Updated upstream
-        UserEntity user;
->>>>>>> Stashed changes
-        try {
-            var profile = profileMapper.toProfileRequest(userRequest);
-            profile.setUserId(user.getId());
-<<<<<<< Updated upstream
-            log.info("Profile: {}",user.getId());
-=======
-=======
-        UserEntity user = userMapper.toUser(userRequest);
-
-        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        user.setIsEmailAuth("Unverified");
         var roles = roleRepository.findById("USER").stream().toList();
         user.setRoles(new HashSet<>(roles));
 
@@ -83,8 +64,6 @@ public class UserService {
 
             var profile = profileMapper.toProfileRequest(userRequest);
             profile.setUserId(list.getFirst());
->>>>>>> Stashed changes
->>>>>>> Stashed changes
             profileClient.createProfile(profile);
         } catch(Exception e){
             throw new AppException(ErrorCode.NOT_INITIALIZE);
@@ -94,6 +73,10 @@ public class UserService {
     }
 
     public void sendingEmail() {
+        for (OtpEmailEntity listOtp : otpEmailRepository.findAll())
+            if (listOtp.getOtpExpiryTime().isBefore(Instant.now()))
+                otpEmailRepository.deleteById(listOtp.getOtp());
+
         var user = userRepository.findById(SecurityContextHolder.getContext().getAuthentication().getName())
                 .orElseThrow(() -> new AppException(ErrorCode.UNAUTHENTICATED));
         if (!user.getIsEmailAuth().equals("Unverified"))
@@ -111,21 +94,23 @@ public class UserService {
         kafkaTemplate.send("notification-delivery", notificationEvent);
         otpEmailRepository.save(OtpEmailEntity.builder()
                 .otp(String.valueOf(randomNum))
-                .otpExpiryTime(Instant.now().plusSeconds(300))
+                .otpExpiryTime(Instant.now().plusSeconds(60))
                 .build());
     }
 
     public OtpEmailResponse verifyEmail(OtpEmailRequest otpEmailRequest) {
         var user = userRepository.findById(SecurityContextHolder.getContext().getAuthentication().getName())
                 .orElseThrow(() -> new AppException(ErrorCode.UNAUTHENTICATED));
+        if (!user.getIsEmailAuth().equals("Unverified"))
+            throw new AppException(ErrorCode.EMAIL_VERIFIED);
 
         OtpEmailEntity otpEmail = otpEmailRepository.findById(otpEmailRequest.getOtp())
                 .orElseThrow(() -> new AppException(ErrorCode.WRONG_OTP));
         if (otpEmail.getOtpExpiryTime().isBefore(Instant.now())) {
-            otpEmailRepository.deleteById(otpEmailRequest.getOtp());
             throw new AppException(ErrorCode.EMAIL_TIME);
         }
         user.setIsEmailAuth("Verified");
+//        log.info(String.valueOf(user));
         userRepository.save(user);
         return OtpEmailResponse.builder().mess("Verify SuccessFull !!").build();
     }
@@ -167,8 +152,8 @@ public class UserService {
                 .orElseThrow(() -> new AppException(ErrorCode.USERNAME_AUTH)));
     }
 
-//    public UserResponse getUser(String id) {
-//        return userMapper.toUserResponse(userRepository.findById(id)
-//                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
-//    }
+    public UserResponse getUser(String id) {
+        return userMapper.toUserResponse(userRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
+    }
 }

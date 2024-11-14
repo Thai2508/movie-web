@@ -18,7 +18,7 @@ public enum ErrorCode {
     INVALID_DOB(1010,"Your age must be at least {min}", HttpStatus.BAD_REQUEST),
     NOT_INITIALIZE(1011,"Unable to initialize Profile", HttpStatus.BAD_REQUEST),
     WRONG_OTP(1012,"Wrong Otp", HttpStatus.BAD_REQUEST),
-    EMAIL_TIME(1013,"Time off", HttpStatus.BAD_REQUEST),
+    EMAIL_TIME(1013,"Expired, please resend", HttpStatus.BAD_REQUEST),
     EMAIL_EXISTED(1004,"Email existed", HttpStatus.BAD_REQUEST),
     EMAIL_VERIFIED(1001,"Email is verified", HttpStatus.BAD_REQUEST),
     ;

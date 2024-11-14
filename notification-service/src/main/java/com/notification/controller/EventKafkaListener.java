@@ -19,12 +19,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Component
-@KafkaListener(groupId = "email-authentication", topics = {"notification-delivery"})
 @Slf4j
 public class EventKafkaListener {
     EmailService emailService;
 
-    @KafkaHandler
+    @KafkaListener(groupId = "email-authentication", topics = {"notification-delivery"},
+                   containerFactory = "notificationEventKafkaListenerContainerFactory" )
     public void listenNotificationDelivery(NotificationEvent notificationEvent) {
         emailService.sendEmail(SendEmailRequest.builder()
                         .to(List.of(Recipient.builder().email(notificationEvent.getRecipient()).build()))

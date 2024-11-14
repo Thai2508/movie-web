@@ -2,16 +2,8 @@ package com.identity.config;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.IntegerDeserializer;
-<<<<<<< Updated upstream
 import org.apache.kafka.common.serialization.StringSerializer;
-=======
-<<<<<<< Updated upstream
-=======
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.*;

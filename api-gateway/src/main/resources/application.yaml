@@ -35,6 +35,12 @@ spring:
       - Path=${app.prefix-path}/movie/**
     filters:
       - StripPrefix=1
+  - id: search-service
+    uri: http://localhost:8091
+    predicates:
+      - Path=${app.prefix-path}/search/**
+    filters:
+      - StripPrefix=1
 
 app:
   prefix-path: /api
