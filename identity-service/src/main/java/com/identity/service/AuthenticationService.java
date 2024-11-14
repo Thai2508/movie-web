@@ -64,6 +64,7 @@ public class AuthenticationService {
         if (user.getUsername().equals("admin") && user.getRoles().isEmpty()) {
             var roles = roleRepository.findById("ADMIN").stream().toList();
             user.setRoles(new HashSet<>(roles));
+            user.setIsEmailAuth(null);
             userRepository.save(user);
         }
 

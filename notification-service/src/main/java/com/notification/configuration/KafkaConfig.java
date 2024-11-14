@@ -25,7 +25,6 @@ public class KafkaConfig {
         consumerProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9094");
         consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        consumerProps.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.event.dto.NotificationEvent");
         return consumerProps;
     }
 

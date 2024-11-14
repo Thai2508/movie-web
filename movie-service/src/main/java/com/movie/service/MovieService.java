@@ -79,7 +79,6 @@ public class MovieService {
         return movieMapper.toMovieResponse(info);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     public List<MovieResponse> getAllMovie() {
         return movieRepository.findAll().stream().map(movieMapper::toMovieResponse).toList();
     }
@@ -89,7 +88,6 @@ public class MovieService {
         movieRepository.deleteAll();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     public List<CommonResponse> getAllCommon(String common) {
         return switch (common) {
             case "actor" -> actorsRepository.findAll().stream().map(commonMapper::actorsResponse).toList();
